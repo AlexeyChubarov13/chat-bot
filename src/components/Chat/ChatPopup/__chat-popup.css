@@ -1,0 +1,108 @@
+.chat-popup {
+    position: absolute;
+    display: flex;
+    gap: 10px;
+    right: 36px;
+    bottom: 62px;
+    z-index: 1;
+}
+
+.chat-popup__inner {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    max-width: 33.125rem;
+    width: 100vw;
+    height: calc(100svh - 88px - 31px);
+    padding: 1.5rem;
+    background-color: #ffffff;
+    border-radius: 10px;
+}
+
+/* .chat-popup__header {
+    padding: 24px;
+    
+} */
+
+.chat-popup__title {
+    position: relative;
+    font-weight: 700;  
+    display: inline-block;
+    font-size: 40px;
+    color: #000000;
+}
+
+.chat-popup__title span {
+    font-size: 40px;
+    font-weight: 700;  
+    color: #EB5757;
+}
+
+.chat-popup__title::before {
+    position: absolute;
+    content: '';
+    width: 10px;
+    height: 10px;
+    background-color: #EB5757;
+    right: -15px;
+    bottom: 5px;
+    clip-path: polygon(100% 0%, 0% 100%, 100% 100%);
+}
+
+.chat-popup__body {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 24px;
+    justify-content: flex-end;
+}
+
+.chat-popup__messeges {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.chat-popup__messege {
+    position: relative;
+    width: fit-content calc(100% - 17px);
+    align-self: flex-end;
+    padding: 1.5rem;
+    margin-right: 17px;
+    border-radius: 1.125rem;
+    background-color: #ffffff;
+    color: #000000;
+    box-shadow: 0px 12px 56px 0px #0000000F;
+}
+
+.chat-popup__messege.--bot {
+    align-self: flex-start;
+    width: calc(100% - 17px);
+    margin-left: 17px;
+    background-color: #168DD9;
+    color: #ffffff;
+}
+
+.chat-popup__messege::before {
+    position: absolute;
+    content: '';
+    width: 17px;
+    height: 29px;
+    background-color: #ffffff;
+    right: -17px;
+    bottom: 18px;
+    clip-path: polygon(0% 0%, 0% 100%, 100% 50%);
+}
+
+.chat-popup__messege.--bot::before {
+    position: absolute;
+    content: '';
+    width: 17px;
+    height: 29px;
+    background-color: #168DD9;
+    left: -17px;
+    bottom: 18px;
+    clip-path: polygon(0% 0%, 0% 100%, 100% 50%);
+    transform: rotate(180deg);
+}

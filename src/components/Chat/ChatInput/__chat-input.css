@@ -1,0 +1,30 @@
+.chat-input {
+    position: sticky;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    width: 486px;
+    height: 124px;
+    background-color: #f3f3f3;
+    border-radius: 12px;
+    bottom: 0;
+}
+
+.chat-input__textarea {
+    width: 100%;
+    font-size: 18px;
+    padding-left: 24px;
+    padding-top: 28px;
+    border: none;
+    outline: none;
+    resize: none;
+    background-color: transparent;
+}
+
+.chat-input__button {
+    width: 62px;
+    height: 50px;
+    padding-top: 20px;
+    padding-right: 20px;
+    border: none;
+}
