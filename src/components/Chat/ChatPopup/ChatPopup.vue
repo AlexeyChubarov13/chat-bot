@@ -1,5 +1,34 @@
 <script setup>
 import ChatInput from '../ChatInput/ChatInput.vue';
+
+import { useDadata } from '@/composables/useDadata'
+const { fetchOrganization } = useDadata();
+const chatStore = useChatStore()
+
+
+const sendData = (message) => {
+  chatStore.addMessage({
+    type: 'user',
+    text: message
+  })
+
+  
+    const isInn = /^\d{10}(\d{2})?$/.test(message)
+
+    if (!isInn) {
+        chatStore.addMessage({
+            type: 'bot',
+            text: 'Введите ИНН из 10 или 12 цифр.'
+        })
+    return
+    }
+
+  console.log('sendData', message);
+  fetchOrganization(message);
+
+}
+
+
 </script>
 <template>
     <div class="chat-popup">
@@ -11,8 +40,17 @@ import ChatInput from '../ChatInput/ChatInput.vue';
                 <div class="chat-popup__wrapper">
                     <div class="chat-popup__date">Сегодня</div>
                     <div class="chat-popup__messeges">
-                        <div class="chat-popup__messege --bot">hello world</div>
-                        <div class="chat-popup__messege">hello world</div>
+                        <!-- <div class="chat-popup__messege --bot">hello world</div>
+                        <div class="chat-popup__messege">hello world</div> -->
+                        <div
+                            v-for="message in chatStore.messages"
+                            :key="message.id"
+                            class="chat-popup__messege"
+                            :class="{ '--bot': message.type === 'bot' }"
+                        >
+                            {{ message.text }}
+                        </div>
+                        
                     </div>
                     <div class="chat-popup__search">
                         <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -23,7 +61,7 @@ import ChatInput from '../ChatInput/ChatInput.vue';
                     </div>
                 </div>
                 
-                <ChatInput />
+                <ChatInput  @send="(message) => sendData(message)" />
             </div>
         </div>
         <div class="chat-popup__close">
