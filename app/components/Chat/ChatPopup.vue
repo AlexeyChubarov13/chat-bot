@@ -3,20 +3,35 @@ const emit = defineEmits(['close'])
 const { fetchOrganization } = useDadata()
 const chatStore = useChatStore()
 
-// const messages = ref([
-//   { id: 1, type: 'bot', text: 'Напишите ИНН, и я найду контрагента.' }
-// ])
+const messages = computed({
+  get: () => chatStore.getMessages,
+  set: (value) => chatStore.setMessages(value)
+})
+
 const isSearching = ref(false)
 
 async function sendData(message) {
-  messages.value.push({ id: Date.now(), type: 'user', text: message })
+  chatStore.addMessage({
+    type: 'user',
+    text: message
+  })
+
+  const isInn = /^\d{10}(\d{2})?$/.test(message)
+
+  if (!isInn) {
+    chatStore.addMessage({
+      type: 'bot',
+      text: 'Введите ИНН из 10 или 12 цифр.'
+    })
+    return
+  }
+
   isSearching.value = true
 
   const result = await fetchOrganization(message)
   const organization = result?.suggestions?.[0]
 
-  messages.value.push({
-    id: Date.now() + 1,
+  chatStore.addMessage({
     type: 'bot',
     text: organization
       ? `${organization.value}. ИНН: ${organization.data?.inn || 'не указан'}`
@@ -25,6 +40,7 @@ async function sendData(message) {
 
   isSearching.value = false
 }
+
 </script>
 
 <template>
