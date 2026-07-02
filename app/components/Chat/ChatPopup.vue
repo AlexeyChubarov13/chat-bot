@@ -31,12 +31,43 @@ async function sendData(message) {
   const result = await fetchOrganization(message)
   const organization = result?.suggestions?.[0]
 
+  if (!organization) {
   chatStore.addMessage({
     type: 'bot',
-    text: organization
-      ? `${organization.value}. ИНН: ${organization.data?.inn || 'не указан'}`
-      : 'Контрагент не найден.'
+    text: 'Контрагент не найден.'
   })
+
+  isSearching.value = false
+  return
+}
+
+const counterparty = {
+  name: organization.value,
+  inn: organization.data?.inn,
+  kpp: organization.data?.kpp,
+  ogrn: organization.data?.ogrn,
+  address: organization.data?.address?.value,
+  manager: organization.data?.management?.name,
+  status: organization.data?.state?.status
+}
+
+chatStore.addToHistory(counterparty)
+
+  console.log(counterparty)
+
+
+  chatStore.addMessage({
+  type: 'bot',
+  text: `
+  Название: ${counterparty.name || 'не указано'}
+  ИНН: ${counterparty.inn || 'не указан'}
+  КПП: ${counterparty.kpp || 'не указан'}
+  ОГРН: ${counterparty.ogrn || 'не указан'}
+  Адрес: ${counterparty.address || 'не указан'}
+  Руководитель: ${counterparty.manager || 'не указан'}
+  Статус: ${counterparty.status || 'не указан'}
+  `.trim()
+})
 
   isSearching.value = false
 }

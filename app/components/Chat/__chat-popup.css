@@ -90,6 +90,7 @@
   color: #000000;
   background-color: #ffffff;
   box-shadow: 0 12px 56px 0 #0000000f;
+  white-space: pre-line;
 }
 
 .chat-popup__messege.--bot {
