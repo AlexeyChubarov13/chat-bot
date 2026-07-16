@@ -11,10 +11,14 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@nuxt/icon": "^2.3.1",
     "@pinia/nuxt": "^0.11.3",
     "nuxt": "^4.0.0",
     "pinia": "^3.0.4",
     "unstorage": "^1.17.5",
     "vue": "^3.5.0"
+  },
+  "devDependencies": {
+    "sass": "^1.101.0"
   }
 }
