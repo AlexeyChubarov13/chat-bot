@@ -27,4 +27,4 @@ function sendMessage() {
   </form>
 </template>
 
-<style src="./__chat-input.css"></style>
+<style src="./__chat-input.scss"></style>

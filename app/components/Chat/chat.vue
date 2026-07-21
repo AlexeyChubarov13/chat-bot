@@ -12,4 +12,4 @@ const isOpen = ref(false)
   </div>
 </template>
 
-<style src="./__chat.css"></style>
+<style src="./__chat.scss"></style>

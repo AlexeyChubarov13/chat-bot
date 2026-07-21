@@ -1,0 +1,46 @@
+@use '@/assets/scss/functions' as *;
+
+.chat-input {
+  position: relative;
+  display: flex;
+  width: 100%;
+  min-height: rem(124);
+  flex: 0 0 auto;
+  justify-content: space-between;
+  gap: rem(12);
+  border-radius: rem(12);
+  background-color: var(--color__gray-2);
+  box-sizing: border-box;
+
+
+  &__textarea {
+    flex: 1;
+    min-width: 0;
+    padding: rem(28) rem(100) rem(18) rem(24);
+    border: none;
+    outline: none;
+    resize: none;
+    font-size: rem(18);
+    background-color: transparent;
+  }
+  
+  &__button {
+    position: absolute;
+    width: rem(80);
+    height: rem(80);
+    top: 0;
+    right: 0;
+    // flex: 0 0 rem(80);
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+  }
+  
+  &__img {
+    position: absolute;
+    top: rem(20);
+    right: rem(20);
+  }
+}
+
+

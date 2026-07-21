@@ -1,3 +1,5 @@
+@use '@/assets/scss/functions' as *;
+
 .chat {
   position: fixed;
   right: 0;
@@ -7,18 +9,18 @@
 
 .chat__button {
   position: absolute;
-  right: 30px;
-  bottom: 30px;
+  right: rem(30);
+  bottom: rem(30);
   z-index: 2;
   display: flex;
-  width: 64px;
-  height: 64px;
+  width: rem(64);
+  height: rem(64);
   align-items: center;
   justify-content: center;
   border: 0;
   border-radius: 50%;
-  color: white;
-  background-color: #eb5757;
-  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.64);
+  color: var(--color__white);
+  background-color: var(--color__primary-2);
+  box-shadow: 0 0 0 rem(4) var(--color__white-64);
   cursor: pointer;
 }
