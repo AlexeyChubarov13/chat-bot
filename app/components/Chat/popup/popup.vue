@@ -11,6 +11,27 @@ const messages = computed({
 const isSearching = ref(false)
 const isHistoryOpen = ref(false)
 
+function formatCounterparty(counterparty) {
+  return `
+  Название: ${counterparty.name || 'не указано'}
+  ИНН: ${counterparty.inn || 'не указан'}
+  КПП: ${counterparty.kpp || 'не указан'}
+  ОГРН: ${counterparty.ogrn || 'не указан'}
+  Адрес: ${counterparty.address || 'не указан'}
+  Руководитель: ${counterparty.manager || 'не указан'}
+  Статус: ${counterparty.status || 'не указан'}
+    `.trim()
+}
+
+function selectFromHistory(counterparty) {
+  chatStore.addMessage({
+    type: 'bot',
+    text: formatCounterparty(counterparty)
+  })
+
+  isHistoryOpen.value = false
+}
+
 async function sendData(message) {
   chatStore.addMessage({
     type: 'user',
@@ -27,7 +48,20 @@ async function sendData(message) {
     return
   }
 
+  const savedCounterparty = chatStore.history.find((item) => item.inn === message)
+
+  if (savedCounterparty) {
+
+    chatStore.addMessage({
+      type: 'bot',
+      text: formatCounterparty(savedCounterparty)
+    })
+
+    return
+  }
+
   isSearching.value = true
+
 
   const result = await fetchOrganization(message)
   const organization = result?.suggestions?.[0]
@@ -54,20 +88,10 @@ const counterparty = {
 
 chatStore.addToHistory(counterparty)
 
-  console.log(counterparty)
-
 
   chatStore.addMessage({
   type: 'bot',
-  text: `
-  Название: ${counterparty.name || 'не указано'}
-  ИНН: ${counterparty.inn || 'не указан'}
-  КПП: ${counterparty.kpp || 'не указан'}
-  ОГРН: ${counterparty.ogrn || 'не указан'}
-  Адрес: ${counterparty.address || 'не указан'}
-  Руководитель: ${counterparty.manager || 'не указан'}
-  Статус: ${counterparty.status || 'не указан'}
-  `.trim()
+  text: formatCounterparty(counterparty)
 })
 
   isSearching.value = false
@@ -119,7 +143,12 @@ chatStore.addToHistory(counterparty)
             </p>
 
 
-            <div v-for="item in chatStore.history" :key="item.inn" class="chat-popup__history-item">
+            <div 
+              v-for="item in chatStore.history" 
+              :key="item.inn" 
+              class="chat-popup__history-item"
+              @click="selectFromHistory(item)"
+              >
               
               <p class="chat-popup__history-name">{{ item.name }}</p>
               <p class="chat-popup__history-inn">{{ item.inn }}</p>

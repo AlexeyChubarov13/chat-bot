@@ -151,6 +151,19 @@
     padding: rem(16);
     border-radius: rem(12);
     background-color: var(--color__gray);
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--color__primary);
+
+      .chat-popup__history-name {
+        color: var(--color__white);
+      }
+
+      .chat-popup__history-inn {
+        color: var(--color__white-64);
+      }
+    }
   }
   
   &__history-name {
