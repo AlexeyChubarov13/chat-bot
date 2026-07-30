@@ -11,6 +11,24 @@ const messages = computed({
 const isSearching = ref(false)
 const isHistoryOpen = ref(false)
 
+const isMessagesUpdating = ref(false)
+let updateTimer
+
+watch(
+  () => messages.value.length,
+  () => {
+    isMessagesUpdating.value = true
+    clearTimeout(updateTimer)
+
+    updateTimer = setTimeout(() => {
+      isMessagesUpdating.value = false
+    }, 150)
+  },
+  { flush: 'post' }
+)
+
+onBeforeUnmount(() => clearTimeout(updateTimer))
+
 function formatCounterparty(counterparty) {
   return `
   Название: ${counterparty.name || 'не указано'}
@@ -112,7 +130,10 @@ chatStore.addToHistory(counterparty)
 
       <div class="chat-popup__body">
         <template v-if="!isHistoryOpen">
-          <div class="chat-popup__wrapper">
+          <div class="chat-popup__wrapper"  
+          :class="{ '--update': isMessagesUpdating }"
+          >
+          
             <div class="chat-popup__date">Сегодня</div>
 
             <div class="chat-popup__messeges">

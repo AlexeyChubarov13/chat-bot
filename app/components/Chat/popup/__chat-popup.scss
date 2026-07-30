@@ -83,6 +83,14 @@
     gap: 1.5rem;
     overflow-x: hidden;
     overflow-y: auto;
+
+    &.--update {
+      scroll-snap-type: y mandatory;
+    
+      .chat-popup__messeges > :last-child {
+        scroll-snap-align: end;
+      }
+    }
   }
   
   &__date {
